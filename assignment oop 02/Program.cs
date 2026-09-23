@@ -1,4 +1,5 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿using static assignment_oop_02.Program;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace assignment_oop_02
@@ -25,25 +26,104 @@ namespace assignment_oop_02
 
             #region  Question 2
             // A -Which class is the parent class?
-            Shipment is the parent 
-            ***************************************
+            // Shipment is the parent 
+            //  ***************************************
             // B -Which class is the child class?
-            ExpressShipment is the chil
-            ***********************************************
+            //  ExpressShipment is the chil
+            //  ***********************************************
             //c-What members are inherited by ExpressShipment?
-            TrackingCode
-            ************************************************
+            //  TrackingCode
+            // ************************************************
             // D- Why is inheritance better than duplicating the same code?
-             avoids code duplication and makes the code easier to maintain.
+            // avoids code duplication and makes the code easier to maintain.
 
 
             #endregion
 
 
+            #region Question 1 part 2
+            //q1 
 
+            public struct DeliveryAddress
+        {
+            public string city { get; set; }
+            public string street { get; set; }
 
+            public DeliveryAddress(string city, string street)
+            {
+                city = city;
+                street = street;
+            }
 
-
+            public override string ToString()
+            {
+                return $"{street}, {city}";
+            }
         }
+
+
+     
+
+public class Shipment
+    {
+        public string TrackingCode { get; set; }
+        public string Description { get; set; }
+        public decimal Weight { get; set; }
+        public decimal DeliveryFee { get; set; }
+        public DeliveryAddress Destination { get; set; }
+
+        public Shipment( string trackingCode, string description, decimal weight,  DeliveryAddress destination)
+        {
+            TrackingCode = trackingCode;
+            Description = description;
+            Weight = weight;
+            DeliveryFee = deliveryFee;
+            Destination = destination;
+        }
+
+        
+        public virtual decimal EstimatedCost
+        {
+            get
+            {
+                return DeliveryFee + (Weight * 5);
+            }
+        }
+
+        public void UpdateDeliveryFee(decimal newFee)
+        {
+            if (newFee < 0)
+            {
+                Console.WriteLine("Deliverycannobenegative.");
+                return;
+            }
+
+            DeliveryFee = newFee;
+        }
+        public virtual void PrintShipment()
+        {
+           
+            Console.WriteLine($"Tracking Code: {TrackingCode}");
+            Console.WriteLine($"Description: {Description}");
+            Console.WriteLine($"Weight: {Weight}");
+            Console.WriteLine($"Delivery Fee: {DeliveryFee}");
+            Console.WriteLine($"Destination: {Destination}");
+            Console.WriteLine($"Estimated Cost{EstimatedCost}");
+        }
+    }
+
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+}
     }
 }
