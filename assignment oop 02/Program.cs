@@ -116,153 +116,280 @@ public class Shipment
 
 
 
-        #endregion
-        #region Question 2 part 2
-        //q2 
-       public class StandardShipment : Shipment
+            #endregion
+            #region Question 2 part 2
+            //q2 
+            /*  public class StandardShipment : Shipment
+               {
+                   public StandardShipment( string trackingCode, string description,
+                       decimal weight, decimal deliveryFee,  DeliveryAddress destination)
+                       : 
+
+                       base( trackingCode, description,
+                           weight, deliveryFee,destination)
+                   {
+                   }
+               }
+
+               *****************************************************************************
+
+
+
+       public class ExpressShipment : Shipment
+               {
+                   private decimal extraFee;
+
+                   public decimal ExtraFee
+                   {
+                       get
+                       {
+                           return extraFee;
+                       }
+
+                       set
+                       {
+                           if (value < 0)
+                           {
+                               throw new ArgumentException(
+                                   "ExtraFee must greater than or equal to 0");
+                           }
+
+                           extraFee = value;
+                       }
+                   }
+
+                   public ExpressShipment(
+                       string trackingCode,
+                       string description,
+                       decimal weight,
+                       decimal deliveryFee,
+                       DeliveryAddress destination,
+                       decimal extraFee)
+                       : base( trackingCode,  description,  weight,   deliveryFee,  destination)
+                   {
+                       ExtraFee = extraFee;
+                   }
+
+                   public override decimal EstimatedCost
+                   {
+                       get
+                       {
+                           return DeliveryFee + (Weight * 5) + ExtraFee;
+                       }
+                   }
+
+                   public override void PrintShipment()
+                   {
+                       base.PrintShipment();
+                       Console.WriteLine($"Extra Fee : {ExtraFee}");
+                   }
+               }
+               **********************************************************************************************
+
+
+       public class InternationalShipment : Shipment
+               {
+                   private string destinationCountry;
+                   private decimal customsFee;
+
+                   public string DestinationCountry
+                   {
+                       get
+                       {
+                           return destinationCountry;
+                       }
+
+                       set
+                       {
+                           if (string.IsNullOrWhiteSpace(value))
+                           {
+                               throw new ArgumentException(
+                                   "DestinationCountry cannotbeempty.");
+                           }
+
+                           destinationCountry = value;
+                       }
+                   }
+
+                   public decimal CustomsFee
+                   {
+                       get
+                       {
+                           return customsFee;
+                       }
+
+                       set
+                       {
+                           if (value < 0)
+                           {
+                               throw new ArgumentException(
+                                   "CustomsFee must greater than or equal to 0.");
+                           }
+
+                           customsFee = value;
+                       }
+                   }
+
+
+                   public InternationalShipment(
+                       string trackingCode,
+                       string description,
+                       decimal weight,
+                       decimal deliveryFee,
+                       DeliveryAddress destination,
+                       string destinationCountry,
+                       decimal customsFee)
+                       : base(
+                           trackingCode,
+                           description,
+                           weight,
+                           deliveryFee,
+                           destination)
+                   {
+                       DestinationCountry = destinationCountry;
+                       CustomsFee = customsFee;
+                   }
+
+                   public override decimal EstimatedCost
+                   {
+                       get
+                       {
+                           return DeliveryFee + (Weight * 5) + CustomsFee;
+                       }
+                   }
+
+                   public override void PrintShipment()
+                   {
+                       base.PrintShipment();
+                       Console.WriteLine($"Country    : {DestinationCountry}");
+                       Console.WriteLine($"Customs Fee : {CustomsFee}");
+                   }
+               }
+
+
+
+
+
+                   */
+
+
+            #endregion
+
+            #region Question 3 part 2
+            // q 3 
+
+public class DeliveryCenter
         {
-            public StandardShipment( string trackingCode, string description,
-                decimal weight, decimal deliveryFee,  DeliveryAddress destination)
-                : 
-                
-                base( trackingCode, description,
-                    weight, deliveryFee,destination)
+            public string CenterName { get; set; }
+
+            private Shipment[] shipments;
+
+            private int count;
+
+            public DeliveryCenter(string centerName)
             {
-            }
-        }
-
-        *****************************************************************************
-
-       
-
-public class ExpressShipment : Shipment
-        {
-            private decimal extraFee;
-
-            public decimal ExtraFee
-            {
-                get
-                {
-                    return extraFee;
-                }
-
-                set
-                {
-                    if (value < 0)
-                    {
-                        throw new ArgumentException(
-                            "ExtraFee must greater than or equal to 0");
-                    }
-
-                    extraFee = value;
-                }
+                CenterName = centerName;
+                shipments = new Shipment[20];
+                count = 0;
             }
 
-            public ExpressShipment(
-                string trackingCode,
-                string description,
-                decimal weight,
-                decimal deliveryFee,
-                DeliveryAddress destination,
-                decimal extraFee)
-                : base( trackingCode,  description,  weight,   deliveryFee,  destination)
-            {
-                ExtraFee = extraFee;
-            }
-
-            public override decimal EstimatedCost
-            {
-                get
-                {
-                    return DeliveryFee + (Weight * 5) + ExtraFee;
-                }
-            }
-
-            public override void PrintShipment()
-            {
-                base.PrintShipment();
-                Console.WriteLine($"Extra Fee : {ExtraFee}");
-            }
-        }
-        **********************************************************************************************
-       
-
-public class InternationalShipment : Shipment
-        {
-            private string destinationCountry;
-            private decimal customsFee;
-
-            public string DestinationCountry
-            {
-                get
-                {
-                    return destinationCountry;
-                }
-
-                set
-                {
-                    if (string.IsNullOrWhiteSpace(value))
-                    {
-                        throw new ArgumentException(
-                            "DestinationCountry cannotbeempty.");
-                    }
-
-                    destinationCountry = value;
-                }
-            }
-
-            public decimal CustomsFee
-            {
-                get
-                {
-                    return customsFee;
-                }
-
-                set
-                {
-                    if (value < 0)
-                    {
-                        throw new ArgumentException(
-                            "CustomsFee must greater than or equal to 0.");
-                    }
-
-                    customsFee = value;
-                }
-            }
-            
            
-            public InternationalShipment(
-                string trackingCode,
-                string description,
-                decimal weight,
-                decimal deliveryFee,
-                DeliveryAddress destination,
-                string destinationCountry,
-                decimal customsFee)
-                : base(
-                    trackingCode,
-                    description,
-                    weight,
-                    deliveryFee,
-                    destination)
+            public bool AddShipment(Shipment shipment)
             {
-                DestinationCountry = destinationCountry;
-                CustomsFee = customsFee;
+                if (shipment == null)
+                {
+                    return false;
+                }
+
+                if (count >= 20)
+                {
+                    return false;
+                }
+
+                shipments[count] = shipment;
+                count++;
+
+                return true;
             }
 
-            public override decimal EstimatedCost
+            public Shipment this[int index]
             {
                 get
                 {
-                    return DeliveryFee + (Weight * 5) + CustomsFee;
+                    if (index < 0 || index >= count)
+                    {
+                        throw new IndexOutOfRangeException();
+                    }
+
+                    return shipments[index];
+                }
+
+                set
+                {
+                    if (index < 0 || index >= count)
+                    {
+                        throw new IndexOutOfRangeException();
+                    }
+
+                    shipments[index] = value;
                 }
             }
 
-            public override void PrintShipment()
+            
+            public Shipment this[string trackingCode]
             {
-                base.PrintShipment();
-                Console.WriteLine($"Country    : {DestinationCountry}");
-                Console.WriteLine($"Customs Fee : {CustomsFee}");
+                get
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (shipments[i].TrackingCode == trackingCode)
+                        {
+                            return shipments[i];
+                        }
+                    }
+
+                    return null;
+                }
+            }
+
+            public bool RemoveShipment(string trackingCode)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    if (shipments[i].TrackingCode == trackingCode)
+                    {
+                        
+                        for (int j = i; j < count - 1; j++)
+                        {
+                            shipments[j] = shipments[j + 1];
+                        }
+
+                        shipments[count - 1] = null;
+                        count--;
+
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+          
+            public void PrintAllShipments()
+            {
+                Console.WriteLine();
+                Console.WriteLine($"===== {CenterName} =====");
+
+                if (count == 0)
+                {
+                    Console.WriteLine("No shipments available.");
+                    return;
+                }
+
+                for (int i = 0; i < count; i++)
+                {
+                    shipments[i].PrintShipment();
+                }
             }
         }
 
@@ -270,16 +397,26 @@ public class InternationalShipment : Shipment
 
 
 
-            */
 
 
-        #endregion
 
 
+
+
+
+
+
+
+
+
+
+
+
+            #endregion
 
 
 
 
     }
-}
+    }
 }
